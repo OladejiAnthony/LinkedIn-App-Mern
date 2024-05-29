@@ -1,37 +1,51 @@
+// Import the required modules
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
 
-const app = express();
-const port = 3000;
-const cors = require("cors");
-app.use(cors());
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-const jwt = require("jsonwebtoken");
+//initialization 
+const app = express(); // Creating an instance of an Express application
+const port = 3000; // Defining the port number on which the server will listen for requests
 
+//import cors
+const cors = require("cors"); // Importing the cors module to enable Cross-Origin Resource Sharing
+
+
+//Middleware Setup
+app.use(cors()); // Using the cors middleware to allow requests from other origins
+app.use(bodyParser.urlencoded({ extended: false })); // Using the body-parser middleware to parse URL-encoded bodies (form submissions)
+app.use(bodyParser.json()); // Using the body-parser middleware to parse JSON bodies (API requests)
+const jwt = require("jsonwebtoken"); // Importing the jsonwebtoken module to handle JSON Web Tokens (JWT) for authentication
+
+
+//Connecting to MongoDB
 mongoose
   .connect("mongodb+srv://oladejianthony4:Tdwonder1@linkedinapp.ruushsy.mongodb.net/", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useNewUrlParser: true, // Using the new URL parser (recommended)
+    useUnifiedTopology: true, // Using the new Server Discover and Monitoring engine (recommended)
   })
   .then(() => {
-    console.log("Connected to MongoDB");
+    console.log("Connected to MongoDB"); // Logging a success message if the connection is successful
   })
   .catch((err) => {
-    console.log("Error connecting to MongoDB", err);
+    console.log("Error connecting to MongoDB", err); // Logging an error message if the connection fails
   });
 
+
+// Start the server
 app.listen(port, () => {
-  console.log("Server is running on port 8000");
+  console.log("Server is running on port 8000"); // Logging a message when the server starts and listens on the specified port
 });
 
-const User = require("./models/user");
-const Post = require("./models/post");
+/*Importing Models */
+const User = require("./models/user"); 
+const Post = require("./models/post"); 
 
+
+/*Endpoints */
 //endpoint to register a user in the backend
 app.post("/register", async (req, res) => {
   try {

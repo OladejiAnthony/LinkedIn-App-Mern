@@ -14,6 +14,7 @@
     "ios": {
       "supportsTablet": true
     },
+    "scheme": "linkedin_clone_mern",
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",

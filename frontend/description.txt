@@ -1,0 +1,36 @@
+
+#Expo Router - https://docs.expo.dev/router/introduction/
+
+Expo Router uses "links" to move between pages in the app. This is conceptually similar to how the web works with <a> tags and the href attribute. <Link /> components.
+By default, routes fill the entire screen. Moving between them is a full-page transition with no animation. In native apps, users expect shared elements like tab headers and tab bars to persist between pages. These are created using layout routes.
+
+-CONFIGURATIONS-
+-npx expo install expo-router react-native-safe-area-context react-native-screens expo-linking expo-constants expo-status-bar
+-add this to package.json file : 
+{
+  "main": "expo-router/entry"
+}
+
+-add these two lines to app.json file -
+{
+  "scheme": "your-app-scheme"
+}
+"plugins": [
+    "expo-router"
+]
+
+-NATIVE LAYOUTS & STACK-
+One of the best advantages to React Native is being able to use native UI components. Expo Router provides a few drop-in native layouts that you can use to easily achieve familiar native behavior.
+Learn how to use the Stack navigator in Expo Router.
+
+-app/home/_layout.js
+import { Stack } from 'expo-router';
+
+export default function HomeLayout() {
+  return (
+    <Stack screenOptions={{ ... }} />
+  );
+}
+
+
+

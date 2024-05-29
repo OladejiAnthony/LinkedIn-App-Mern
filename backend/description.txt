@@ -1,0 +1,15 @@
+
+-initialize package.json -
+npm init
+-INSTALLATION -
+npm install body-parser, cors, express, jsonwebtoken, mongoose, multer, nodemailer,nodemon
+
+-add this to package.json file:
+"scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+},
+
+-DATABASE
+
+MongoDb - mongodb+srv://oladejianthony4:Tdwonder1@linkedinapp.ruushsy.mongodb.net/
