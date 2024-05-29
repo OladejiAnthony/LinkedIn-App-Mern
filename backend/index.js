@@ -35,7 +35,7 @@ mongoose
   });
 
 
-// Start the server
+//Start the server
 app.listen(port, () => {
   console.log("Server is running on port 8000"); // Logging a message when the server starts and listens on the specified port
 });
@@ -67,6 +67,7 @@ app.post("/register", async (req, res) => {
     });
 
     //generate the verification token
+    //Check verificationToken field inside UserSchema
     newUser.verificationToken = crypto.randomBytes(20).toString("hex");
 
     //save the user to the database
@@ -86,11 +87,13 @@ app.post("/register", async (req, res) => {
 });
 
 const sendVerificationEmail = async (email, verificationToken) => {
+  //create transporter for sender email
+  //create app passwords in myaccount.google.com using "Nodemailer" as the app name and copy the generated password
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
-      user: "sujananand0@gmail.com",
-      pass: "rnzcugnscqtqiefs",
+      user: "oladejianthony4@gmail.com",
+      pass: "adttoascputmlwzz",
     },
   });
 
@@ -98,7 +101,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
     from: "linkedin@gmail.com",
     to: email,
     subject: "Email Verification",
-    text: `please click the following link to verify your email : http://localhost:3000/verify/${verificationToken}`,
+    text: `please click the following link to verify your email : http://192.168.0.5:8000/verify/${verificationToken}`,
   };
 
   //send the mail
