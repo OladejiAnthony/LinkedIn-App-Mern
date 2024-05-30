@@ -37,6 +37,29 @@ const login = () => {
     checkLoginStatus();
   },[])
 
+  const handleLogin = async () => {
+    const user = {
+      email: email,
+      password: password
+  }
+
+    try {
+      const response = await axios.post(`http://192.168.0.5:3000/login`,
+        user)
+        console.log({ response });
+      if (!response === 200) {
+        throw new Error("Network Error");
+      }
+      const token = response.data.token;
+      AsyncStorage.setItem("authToken", token);
+      router.replace("/(tabs)/home")
+
+    
+    } catch (error) {
+      console.error("Error logging user", error)
+    }
+  }
+
 
    return (
     <SafeAreaView

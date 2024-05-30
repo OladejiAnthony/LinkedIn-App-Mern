@@ -46,6 +46,18 @@ const Post = require("./models/post");
 
 
 /*Endpoints */
+
+//test route
+app.get("/", (req, res) => {
+  res.send("Home Page")
+})
+
+//create first api
+app.post("/api/first", async (req, res) => {
+  console.log(req.body)
+  res.send("First endpoint")
+})
+
 //endpoint to register a user in the backend
 app.post("/register", async (req, res) => {
   try {
@@ -97,11 +109,12 @@ const sendVerificationEmail = async (email, verificationToken) => {
     },
   });
 
+  //compose the mail to send
   const mailOptions = {
     from: "linkedin@gmail.com",
     to: email,
     subject: "Email Verification",
-    text: `please click the following link to verify your email : http://192.168.0.5:8000/verify/${verificationToken}`,
+    text: `please click the following link to verify your email : http://192.168.0.5:3000/verify/${verificationToken}`,
   };
 
   //send the mail
@@ -117,7 +130,7 @@ const sendVerificationEmail = async (email, verificationToken) => {
 app.get("/verify/:token", async (req, res) => {
   try {
     const token = req.params.token;
-
+    //check if user has verificationToken
     const user = await User.findOne({ verificationToken: token });
     if (!user) {
       return res.status(404).json({ message: "Invalid verification token" });
@@ -125,8 +138,9 @@ app.get("/verify/:token", async (req, res) => {
 
     //mark the user as verified
     user.verified = true;
+    //remove verificationToken from the backend
     user.verificationToken = undefined;
-
+    //save user to backend 
     await user.save();
 
     res.status(200).json({ message: "Email verified successfully" });

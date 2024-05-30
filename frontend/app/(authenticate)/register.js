@@ -8,15 +8,15 @@ import {
   KeyboardAvoidingView,
   TextInput,
   Alert,
-  TouchableOpacity
+  TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
 import { AntDesign } from "@expo/vector-icons";
 import { MaterialIcons } from "@expo/vector-icons";
-import { Entypo } from '@expo/vector-icons';
+import { Entypo } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
-import axios from "axios"
+import axios from "axios";
 
 const register = () => {
   const [email, setEmail] = useState("");
@@ -25,7 +25,36 @@ const register = () => {
   const [image, setImage] = useState("");
   const router = useRouter();
 
+  const handleRegister = async () => {
+    const user = {
+      name: name,
+      email: email,
+      password: password,
+      profileImage: image,
+    };
 
+    try {
+      const response = await axios.post(
+        `http://192.168.0.5:3000/register`,
+        user
+      );
+      console.log({ response });
+      if (!response === 200) {
+        throw new Error("Network Error");
+      }
+      Alert.alert(
+        "Registration successful",
+        "You have been registered successfully"
+      );
+      setName("");
+      setEmail("");
+      setPassword("");
+      setImage("");
+    } catch (error) {
+      Alert.alert("Registration failed", "An error occurred while registering");
+      console.error("registration failed", error);
+    }
+  };
 
   return (
     <SafeAreaView
@@ -115,37 +144,36 @@ const register = () => {
             />
           </View>
 
-
-            <View
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 5,
+              backgroundColor: "#E0E0E0",
+              paddingVertical: 5,
+              borderRadius: 5,
+              marginTop: 30,
+            }}
+          >
+            <AntDesign
+              style={{ marginLeft: 8 }}
+              name="lock1"
+              size={24}
+              color="gray"
+            />
+            <TextInput
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              secureTextEntry={true}
               style={{
-                flexDirection: "row",
-                alignItems: "center",
-                gap: 5,
-                backgroundColor: "#E0E0E0",
-                paddingVertical: 5,
-                borderRadius: 5,
-                marginTop: 30,
+                color: "gray",
+                marginVertical: 10,
+                width: 300,
+                fontSize: password ? 18 : 18,
               }}
-            >
-              <AntDesign
-                style={{ marginLeft: 8 }}
-                name="lock1"
-                size={24}
-                color="gray"
-              />
-              <TextInput
-                value={password}
-                onChangeText={(text) => setPassword(text)}
-                secureTextEntry={true}
-                style={{
-                  color: "gray",
-                  marginVertical: 10,
-                  width: 300,
-                  fontSize: password ? 18 : 18,
-                }}
-                placeholder="enter your Password"
-              />
-            </View>
+              placeholder="enter your Password"
+            />
+          </View>
 
           <View
             style={{
@@ -158,7 +186,12 @@ const register = () => {
               marginTop: 30,
             }}
           >
-            <Entypo name="image" size={24} color="gray" style={{marginLeft:8}} />
+            <Entypo
+              name="image"
+              size={24}
+              color="gray"
+              style={{ marginLeft: 8 }}
+            />
             <TextInput
               value={image}
               onChangeText={(text) => setImage(text)}
@@ -171,8 +204,6 @@ const register = () => {
               placeholder="enter your image url"
             />
           </View>
-
-        
 
           <View
             style={{
@@ -192,7 +223,7 @@ const register = () => {
           <View style={{ marginTop: 80 }} />
 
           <TouchableOpacity
-         onPress={handleRegister}
+            onPress={handleRegister}
             style={{
               width: 200,
               backgroundColor: "#0072b1",
@@ -226,10 +257,8 @@ const register = () => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
+};
 
-}
+export default register;
 
-export default register
-
-const styles = StyleSheet.create({})
-
+const styles = StyleSheet.create({});

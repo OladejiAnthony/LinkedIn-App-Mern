@@ -13,3 +13,6 @@ npm install body-parser, cors, express, jsonwebtoken, mongoose, multer, nodemail
 -DATABASE
 
 MongoDb - mongodb+srv://oladejianthony4:Tdwonder1@linkedinapp.ruushsy.mongodb.net/
+
+-Tonys Laptop Port/Ip address:
+http://192.168.0.5:3000/login
