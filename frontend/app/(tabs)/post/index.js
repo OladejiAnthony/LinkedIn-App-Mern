@@ -18,6 +18,7 @@ import { firebase } from "../../../firebase";
 import axios from "axios";
 import { useRouter } from "expo-router";
 
+
 const index = () => {
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
@@ -43,8 +44,8 @@ const index = () => {
       aspect: [4, 3],
       quality: 1,
     });
+    console.log({result});
 
-    console.log(result);
     if (!result.canceled) {
       setImage(result.assets[0].uri);
     }
@@ -53,7 +54,7 @@ const index = () => {
   //create Post
   const createPost = async () => {
     try {
-      const uploadedUrl = await uploadFile();
+      const uploadedUrl = await uploadFile(); 
 
       const postData = {
         description: description,
@@ -65,8 +66,8 @@ const index = () => {
         "http://192.168.0.5:3000/create",
         postData
       );
-
       console.log("post created", response.data);
+
       if (response.status === 201) {
         router.replace("/(tabs)/home");
       }
@@ -74,7 +75,10 @@ const index = () => {
       console.log("error creating post", error);
     }
   };
+
+  
   const uploadFile = async () => {
+    //upload to firebase storage
     try {
       // Ensure that 'image' contains a valid file URI
       console.log("Image URI:", image);
@@ -105,6 +109,7 @@ const index = () => {
 
       const downloadURL = await ref.getDownloadURL();
       // setUrl(downloadURL);
+
       return downloadURL;
       // Alert.alert("Photo uploaded");
     } catch (error) {
@@ -112,6 +117,9 @@ const index = () => {
       // Handle the error or display a user-friendly message
     }
   };
+
+
+
   return (
     <ScrollView style={{ flex: 1, backgroundColor: "white" }}>
       <View
