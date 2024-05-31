@@ -107,6 +107,9 @@ const sendVerificationEmail = async (email, verificationToken) => {
       user: "oladejianthony4@gmail.com",
       pass: "adttoascputmlwzz",
     },
+    tls: {
+      rejectUnauthorized: false,
+    },
   });
 
   //compose the mail to send
@@ -122,7 +125,8 @@ const sendVerificationEmail = async (email, verificationToken) => {
     await transporter.sendMail(mailOptions);
     console.log("Verification email sent successfully");
   } catch (error) {
-    console.log("Error sending the verification email");
+    console.log("Error sending the verification email: "+error);
+    throw error
   }
 };
 
@@ -173,6 +177,7 @@ app.post("/login", async (req, res) => {
       return res.status(401).json({ message: "Invalid password" });
     }
 
+    //generate token andcd send it in the result
     const token = jwt.sign({ userId: user._id }, secretKey);
 
     res.status(200).json({ token });
@@ -197,6 +202,7 @@ app.get("/profile/:userId", async (req, res) => {
   }
 });
 
+//get all other loggedIn users except the currently logged in userId
 app.get("/users/:userId", async (req, res) => {
   try {
     const loggedInUserId = req.params.userId;
@@ -227,7 +233,7 @@ app.get("/users/:userId", async (req, res) => {
   }
 });
 
-//send a connection request
+//send a connection request to other users
 app.post("/connection-request", async (req, res) => {
   try {
     const { currentUserId, selectedUserId } = req.body;

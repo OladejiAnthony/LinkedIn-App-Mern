@@ -1,3 +1,4 @@
+//setting up tabs
 import { Tabs } from "expo-router";
 import { AntDesign } from "@expo/vector-icons";
 import { Entypo } from "@expo/vector-icons";
@@ -51,3 +52,4 @@ export default function Layout() {
     </Tabs>
   );
 }
+
