@@ -22,8 +22,8 @@ import {
 
 
 const profile = () => {
-  const [userId, setUserId] = useState("");
-  const [user, setUser] = useState();
+  const [userId, setUserId] = useState(""); //userId
+  const [user, setUser] = useState(); //user profile
   const router = useRouter();
   const [userDescription, setUserDescription] = useState("");
 

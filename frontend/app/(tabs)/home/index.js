@@ -6,6 +6,7 @@ import {
   Pressable,
   Image,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,15 +19,13 @@ import moment from "moment";
 import { useRouter } from "expo-router";
 
 const index = () => {
-  const [userId, setUserId] = useState("");
-  console.log({userId})
-  const [user, setUser] = useState();
+  const [userId, setUserId] = useState(""); //userId
+  const [user, setUser] = useState(); //user profile
   const [posts, setPosts] = useState([]);
   const [showfullText, setShowfullText] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
   const router = useRouter();
-
 
   //fetch token and save as userId
   useEffect(() => {
@@ -37,6 +36,7 @@ const index = () => {
       setUserId(userId);
     };
 
+    console.log({ userId });
     fetchUser();
   }, []);
 
@@ -57,6 +57,7 @@ const index = () => {
     } catch (error) {
       console.log("error fetching user profile", error);
     }
+    console.log({ user });
   };
 
   //fetch All Posts
@@ -69,15 +70,17 @@ const index = () => {
         console.log("error fetching posts", error);
       }
     };
+    console.log({ posts });
     fetchAllPosts();
   });
 
+  //post description
   const MAX_LINES = 2;
   const toggleShowFullText = () => {
     setShowfullText(!showfullText);
   };
 
-  //like post 
+  //like post
   const handleLikePost = async (postId) => {
     try {
       const response = await axios.post(
@@ -92,10 +95,7 @@ const index = () => {
       console.log("Error liking/unliking the post", error);
     }
   };
-
- 
-
-
+  
 
   return (
     <ScrollView>
@@ -138,9 +138,11 @@ const index = () => {
         <Ionicons name="chatbox-ellipses-outline" size={24} color="black" />
       </View>
 
+      {/*Posts lists */}
       <View>
         {posts?.map((item, index) => (
           <View key={index}>
+            {/*A Post */}
             <View
               style={{
                 flexDirection: "row",
@@ -197,6 +199,7 @@ const index = () => {
               >
                 {item?.description}
               </Text>
+
               {!showfullText && (
                 <Pressable onPress={toggleShowFullText}>
                   <Text>See more</Text>
@@ -230,7 +233,7 @@ const index = () => {
                 borderWidth: 2,
               }}
             />
-
+            {/*Buttons */}
             <View
               style={{
                 flexDirection: "row",
@@ -239,7 +242,7 @@ const index = () => {
                 marginVertical: 10,
               }}
             >
-              <Pressable onPress={() => handleLikePost(item?._id)}>
+              <TouchableOpacity onPress={() => handleLikePost(item?._id)}>
                 <AntDesign
                   style={{ textAlign: "center" }}
                   name="like2"
@@ -256,7 +259,8 @@ const index = () => {
                 >
                   Like
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
+
               <Pressable>
                 <FontAwesome
                   name="comment-o"
@@ -275,6 +279,7 @@ const index = () => {
                   Comment
                 </Text>
               </Pressable>
+
               <Pressable>
                 <Ionicons
                   name="md-share-outline"
@@ -293,6 +298,7 @@ const index = () => {
                   repost
                 </Text>
               </Pressable>
+
               <Pressable>
                 <Feather name="send" size={20} color="gray" />
                 <Text style={{ marginTop: 2, fontSize: 12, color: "gray" }}>

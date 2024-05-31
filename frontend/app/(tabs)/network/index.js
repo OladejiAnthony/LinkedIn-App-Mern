@@ -18,8 +18,8 @@ import ConnectionRequest from "../../../components/ConnectionRequest";
 import UserProfile from "../../../components/UserProfile";
 
 const index = () => {
-  const [userId, setUserId] = useState("");
-  const [user, setUser] = useState();
+  const [userId, setUserId] = useState(""); //userId
+  const [user, setUser] = useState(); //user profile
   const [users, setUsers] = useState([]);
   const router = useRouter()
   const [connectionRequests, setConnectionRequests] = useState([]);

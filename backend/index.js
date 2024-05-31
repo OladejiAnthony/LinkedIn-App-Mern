@@ -186,7 +186,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//user's profile
+//other user's profile
 app.get("/profile/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -252,7 +252,7 @@ app.post("/connection-request", async (req, res) => {
   }
 });
 
-//endpoint to show all the connections requests
+//endpoint to show all the connections requests from other users
 app.get("/connection-request/:userId", async (req, res) => {
   try {
     const { userId } = req.params;

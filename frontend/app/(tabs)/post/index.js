@@ -20,9 +20,9 @@ import { useRouter } from "expo-router";
 
 
 const index = () => {
+  const [userId, setUserId] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
-  const [userId, setUserId] = useState("");
   const router = useRouter();
 
 
@@ -68,6 +68,7 @@ const index = () => {
       );
       console.log("post created", response.data);
 
+      //go to home page
       if (response.status === 201) {
         router.replace("/(tabs)/home");
       }
