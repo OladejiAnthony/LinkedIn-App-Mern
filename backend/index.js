@@ -186,7 +186,7 @@ app.post("/login", async (req, res) => {
   }
 });
 
-//other user's profile
+//endpoint for loggedin user's profile
 app.get("/profile/:userId", async (req, res) => {
   try {
     const userId = req.params.userId;
@@ -201,6 +201,22 @@ app.get("/profile/:userId", async (req, res) => {
     res.status(500).json({ message: "Error retrieving user profile" });
   }
 });
+
+//endpoint to update loggedin user description
+app.put("/profile/:userId", async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const { userDescription } = req.body;
+
+    await User.findByIdAndUpdate(userId, { userDescription });
+
+    res.status(200).json({ message: "User profile updated successfully" });
+  } catch (error) {
+    console.log("Error updating user Profile", error);
+    res.status(500).json({ message: "Error updating user profile" });
+  }
+});
+
 
 //get all other loggedIn users except the currently logged in userId
 app.get("/users/:userId", async (req, res) => {
@@ -383,17 +399,3 @@ app.post("/like/:postId/:userId", async (req, res) => {
   }
 });
 
-//endpoint to update user description
-app.put("/profile/:userId", async (req, res) => {
-  try {
-    const userId = req.params.userId;
-    const { userDescription } = req.body;
-
-    await User.findByIdAndUpdate(userId, { userDescription });
-
-    res.status(200).json({ message: "User profile updated successfully" });
-  } catch (error) {
-    console.log("Error updating user Profile", error);
-    res.status(500).json({ message: "Error updating user profile" });
-  }
-});

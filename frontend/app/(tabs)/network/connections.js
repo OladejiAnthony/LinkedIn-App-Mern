@@ -12,6 +12,7 @@ const connections = () => {
   const [connections, setConnections] = useState([]);
   const [userId, setUserId] = useState("");
 
+  //fetch token and save as userId
   useEffect(() => {
     const fetchUser = async () => {
       const token = await AsyncStorage.getItem("authToken");
@@ -22,7 +23,6 @@ const connections = () => {
 
     fetchUser();
   }, []);
-
   useEffect(() => {
     if (userId) {
       fetchConnections();
@@ -73,7 +73,7 @@ const connections = () => {
         }}
       />
 
-      <View style={{ marginHorizontal: 10, marginTop: 10 }}>
+      <View style={{ marginHorizontal: 10, marginTop: 30 }}>
         {connections?.map((item, index) => (
           <View style={{flexDirection:"row",alignItems:"center",gap:10,marginVertical:10}} key={index}>
             <Image

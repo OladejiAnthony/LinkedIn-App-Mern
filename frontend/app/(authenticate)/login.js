@@ -22,20 +22,20 @@ const login = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  // useEffect(() => {
-  //   const checkLoginStatus = async () => {
-  //     try {
-  //       const token = await AsyncStorage.getItem("authToken");
-  //       if (token) {
-  //         router.replace("/(tabs)/home");
-  //       }
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  useEffect(() => {
+    const checkLoginStatus = async () => {
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+        if (token) {
+          router.replace("/(tabs)/home");
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  //   checkLoginStatus();
-  // }, []);
+    checkLoginStatus();
+  }, []);
 
   const handleLogin = async () => {
     const user = {
@@ -45,7 +45,7 @@ const login = () => {
 
     try {
       const response = await axios.post(`http://192.168.0.5:3000/login`, user);
-      console.log({ response });
+      //console.log({ response });
       if (response.status !== 202 && response.status !== 200) {
         throw new Error("Network Error");
       }

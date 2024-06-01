@@ -39,7 +39,7 @@ const register = () => {
         `http://192.168.0.5:3000/register`,
         user
       );
-      console.log({ response });
+      //console.log({ response });
 
       if (response.status !== 202 && response.status !== 200) {
         throw new Error("Network Error");

@@ -40,9 +40,9 @@ const UserProfile = ({ item, userId }) => {
         marginHorizontal: 16,
         borderColor: "#E0E0E0",
         borderWidth: 1,
-        marginVertical: 10,
+        marginVertical: 40,
         justifyContent: "center",
-        height: Dimensions.get("window").height / 4,
+        height: Dimensions.get("window").height / 2.5,
         width: (Dimensions.get("window").width - 80) / 2,
       }}
     >

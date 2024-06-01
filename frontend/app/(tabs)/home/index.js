@@ -18,6 +18,8 @@ import { AntDesign } from "@expo/vector-icons";
 import moment from "moment";
 import { useRouter } from "expo-router";
 
+//console.log("jwt: ",jwt_decode)
+
 const index = () => {
   const [userId, setUserId] = useState(""); //userId
   const [user, setUser] = useState(); //user profile
@@ -25,40 +27,53 @@ const index = () => {
   const [showfullText, setShowfullText] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
 
+
+
   const router = useRouter();
 
   //fetch token and save as userId
   useEffect(() => {
     const fetchUser = async () => {
-      const token = await AsyncStorage.getItem("authToken");
-      const decodedToken = jwt_decode(token);
-      const userId = decodedToken.userId;
-      setUserId(userId);
+      try {
+        const token = await AsyncStorage.getItem("authToken");
+        if (token) {
+          const decodedToken = jwt_decode(token);
+          const userId = decodedToken.userId;
+          setUserId(userId);
+        } else {
+          console.log("No token found");
+        }
+      } catch (error) {
+        console.error("Error fetching token", error);
+      }
     };
 
-    console.log({ userId });
     fetchUser();
   }, []);
+  //console.log({userId});
 
+  //fetch my profile
   useEffect(() => {
     if (userId) {
       fetchUserProfile();
     }
   }, [userId]);
-
-  //fetch user profile
   const fetchUserProfile = async () => {
     try {
       const response = await axios.get(
         `http://192.168.0.5:3000/profile/${userId}`
       );
+      //console.log("PROFILR:", response.data)
       const userData = response.data.user;
+      //console.log({userData})
       setUser(userData);
+      
     } catch (error) {
-      console.log("error fetching user profile", error);
+      console.error("error fetching user profile", error);
     }
-    console.log({ user });
   };
+  //console.log({ user });
+
 
   //fetch All Posts
   useEffect(() => {
@@ -67,12 +82,13 @@ const index = () => {
         const response = await axios.get("http://192.168.0.5:3000/all");
         setPosts(response.data.posts);
       } catch (error) {
-        console.log("error fetching posts", error);
+        console.error("error fetching posts", error);
       }
     };
-    console.log({ posts });
     fetchAllPosts();
-  });
+  }, []);
+  //console.log({ posts });
+
 
   //post description
   const MAX_LINES = 2;
@@ -80,7 +96,7 @@ const index = () => {
     setShowfullText(!showfullText);
   };
 
-  //like post
+  //like post function
   const handleLikePost = async (postId) => {
     try {
       const response = await axios.post(
