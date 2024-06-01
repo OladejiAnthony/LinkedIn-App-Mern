@@ -6,6 +6,7 @@ import {
   Image,
   Pressable,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -25,7 +26,7 @@ const index = () => {
   const [image, setImage] = useState("");
   const router = useRouter();
 
-
+  //fetch token and save as userId
   useEffect(() => {
     const fetchUser = async () => {
       const token = await AsyncStorage.getItem("authToken");
@@ -153,7 +154,7 @@ const index = () => {
           }}
         >
           <Entypo name="back-in-time" size={24} color="black" />
-          <Pressable
+          <TouchableOpacity
             onPress={createPost}
             style={{
               padding: 10,
@@ -171,7 +172,7 @@ const index = () => {
             >
               Post
             </Text>
-          </Pressable>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -207,7 +208,7 @@ const index = () => {
           marginLeft: "auto",
         }}
       >
-        <Pressable
+        <TouchableOpacity
           onPress={pickImage}
           style={{
             widt: 40,
@@ -220,7 +221,7 @@ const index = () => {
           }}
         >
           <MaterialIcons name="perm-media" size={24} color="black" />
-        </Pressable>
+        </TouchableOpacity>
 
         <Text>Media</Text>
       </Pressable>

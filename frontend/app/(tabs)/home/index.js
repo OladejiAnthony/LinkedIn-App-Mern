@@ -183,9 +183,9 @@ const index = () => {
                     numberOfLines={1}
                     ellipsizeMode="tail"
                     style={{
-                      width: 230,
+                      width: 200,
                       color: "gray",
-                      fontSize: 15,
+                      fontSize: 13,
                       fontWeight: "400",
                     }}
                   >
@@ -198,7 +198,7 @@ const index = () => {
               </View>
 
               <View
-                style={{ flexDirection: "row", alignItems: "center", gap: 10 }}
+                style={{ flexDirection: "row", alignItems: "center", gap: 2 }}
               >
                 <Entypo name="dots-three-vertical" size={20} color="black" />
 
@@ -298,7 +298,7 @@ const index = () => {
 
               <Pressable>
                 <Ionicons
-                  name="md-share-outline"
+                  name="share-outline"
                   size={20}
                   color="gray"
                   style={{ textAlign: "center" }}
@@ -332,3 +332,6 @@ const index = () => {
 export default index;
 
 const styles = StyleSheet.create({});
+
+
+

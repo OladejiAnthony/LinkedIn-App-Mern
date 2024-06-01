@@ -47,15 +47,15 @@ const ConnectionRequest = ({
           source={{ uri: item?.image }}
         />
 
-        <Text style={{ width: 200 }}>
+        <Text style={{ width: 175 }}>
           {item?.name} is Inviting you to Connect
         </Text>
 
         <View style={{ flexDirection: "row", alignItems: "center", gap: 7 }}>
           <View
             style={{
-              width: 36,
-              height: 36,
+              width: 26,
+              height: 26,
               borderRadius: 18,
               backgroundColor: "#E0E0E0",
               justifyContent: "center",
@@ -68,15 +68,15 @@ const ConnectionRequest = ({
           <TouchableOpacity
             onPress={() => acceptConnection(item._id)}
             style={{
-              width: 36,
-              height: 36,
+              width: 26,
+              height: 26,
               borderRadius: 18,
               backgroundColor: "#E0E0E0",
               justifyContent: "center",
               alignItems: "center",
             }}
           >
-            <Ionicons name="ios-checkmark-outline" size={22} color="#0072b1" />
+            <Ionicons name="checkmark" size={22} color="red" />
           </TouchableOpacity>
         </View>
       </View>
